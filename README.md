@@ -1,4 +1,4 @@
-# to_do_list
+# Project To do List
 
 ## Project setup
 ```

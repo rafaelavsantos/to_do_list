@@ -1,32 +1,42 @@
 <template>
   <div class="container">
     <form>
-      <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ...">
-      <button>Adicionar</button>
+      <div class="container-form">
+        <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ...">
+        <button>Adicionar</button>
+      </div>
+
+      <div class="container-task">
+        <div class="container-res">
+          <img v-if="showCheck" @click="checkTask()" src="../assets/check-grey.png" alt="Botão de check da atividade">
+          <img v-else @click="checkTask()" src="../assets/check-green.png" alt="Botão de check da atividade">
+          <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ..." />
+        </div>
+        <img class="delete" src="../assets/delete.png" alt="Botão de deletar" @click="deleteTask()">
+      </div>
+
     </form>
-
-    <div class="activies">
-      <div class="ajustar-imagem">
-        <img src="../assets/check-grey.png" alt="">
-        <p>Estudar Vue 2 </p>
-      </div>
-      <img class="delete" src="../assets/delete.png" alt="">
-    </div>
-
-    <div class="activies">
-      <div class="ajustar-imagem">
-        <img src="../assets/check-green.png" alt="">
-        <p>Estudar Vue 3 </p>
-      </div>
-      <img class="delete" src="../assets/delete.png" alt="">
-    </div>
   </div>
 </template>
 
 <script>
+import { api } from '@/boot/axios';
+
 export default {
   name: 'TodoList',
-
+  data() {
+    return {
+      showCheck: true,
+    }
+  }, 
+  methods: {
+    checkTask() {
+      this.showCheck = !this.showCheck;
+    },
+    deleteTask() {
+      // conexão do back e front feita
+    }
+  }
 }
 </script>
 
@@ -34,28 +44,36 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 * {
-  margin: 0 auto;
   font-family: "Open Sans", sans-serif;
 }
 
-.container form {
-  background-color: #0A0D14;
-  border-left: 2px solid #296F44;
-  padding: 10px;
-  width: 500px;
+.container {
   display: flex;
-  align-items: center;
-  margin-top: 20px;
+  justify-content: center;
 }
 
-.container form input {
+.container-form {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #0A0D14;
+  border-left: 2px solid #296F44;
+}
+
+.container-form input {
   border: none;
   width: 100%;
   font-size: 16px;
   background-color: transparent;
 }
 
-.container form button {
+.container-form input:focus {
+  outline: none;
+}
+
+.container-form button {
   border: none;
   text-transform: uppercase;
   color: #359d5d;
@@ -64,43 +82,39 @@ export default {
   cursor: pointer;
 }
 
-
-.activies {
+.container-task {
+  background-color: #BFC1CD;
+  padding: 10px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  background-color: #BFC1CD;
-  width: 500px;
-  padding: 10px;
 
 }
 
-.activies p {
+.container-task img {
+  width: 20px;
   background-color: transparent;
-  color: #3f3f41;
-  padding-left: 10px;
-  font-weight: 500;
-}
-
-.activies .ajustar-imagem {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  margin: 0;
-}
-
-.activies img {
-  background-color: transparent;
-  width: 15px;
-  height: 12px;
-  margin: 0;
   cursor: pointer;
 }
 
-.activies .delete {
-  width: 13px;
-  height: 15px;
+.container-res {
+  background-color: transparent;
+  width: 100%;
+}
+
+.container-res input {
+  background-color: transparent;
+  color: #0A0D14;
+  border: none;
+  width: 85%;
+  padding-left: 10px;
+}
+
+.container-res input:focus {
+  outline: none
+}
+
+.container-res  {
   cursor: pointer;
 }
 </style>
