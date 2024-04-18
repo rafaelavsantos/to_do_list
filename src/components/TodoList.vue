@@ -1,13 +1,14 @@
 <template>
-  <div class="container">
-    <form>
-      <div class="container-form">
+  <div class="todo-list">
+    <form @submit.prevent="addTask()">
+      <div class="input-container">
         <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ...">
-        <input type="submit" value="Adicionar">
+        <button type="submit">Adicionar</button>
       </div>
+    </form>
 
-      <div class="container-res">
-        <div class="container-task">
+      <div class="tasks">
+        <div class="task">
           <div class="check">
             <Check v-if="showCheck" @click="checkTask()" class="icons" />
             <input type="text" name="activies" id="activies" placeholder="Task BD ..." />
@@ -15,7 +16,6 @@
           <Trash2 @click="deleteTask()" class="icons" />
         </div>
       </div>
-    </form>
   </div>
 </template>
 
@@ -45,39 +45,32 @@ export default {
 </script>
 
 <style scoped>
-/*
-  cores:
-  verde #296F44
-  dark #0A0D14
-  cinza: #BFC1CD
-  verde claro: #359d5d
-
-*/
-
-.container {
+.todo-list {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-form {
-  max-width: 500px;
   margin-top: 20px;
 }
 
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
 
-.container-form>#activies {
+.input-container input[type="text"] {
   font-size: 1.2em;
   padding: 10px;
   border: none;
   border-left: 2px solid #359d5d;
+  color: #BFC1CD;
+  width: 400px;
 }
 
-.container-form>#activies:focus {
+.input-container input:focus {
   outline: none;
 }
 
-.container-form>input[type="submit"] {
+.input-container button {
   font-size: 1em;
   padding: 10px;
   border: none;
@@ -87,17 +80,16 @@ form {
   cursor: pointer;
 }
 
-.container-task {
-  margin-top: 20px;
+.task {
   padding: 10px;
-  background-color: aliceblue;
+  background-color: #BFC1CD;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .check {
-  background-color: aliceblue;
+  background-color: #BFC1CD;
   color: #359d5d;
   display: flex;
   align-items: center;
@@ -106,7 +98,9 @@ form {
 .check input {
   border: none;
   background-color: transparent;
+  font-size: 1em;
   padding-left: 10px;
+  width: 440px;
 }
 
 .check input:focus {
