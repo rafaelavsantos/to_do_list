@@ -3,35 +3,39 @@
     <form>
       <div class="container-form">
         <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ...">
-        <button>Adicionar</button>
+        <input type="submit" value="Adicionar">
       </div>
 
-      <div class="container-task">
-        <div class="container-res">
-          <img v-if="showCheck" @click="checkTask()" src="../assets/check-grey.png" alt="Botão de check da atividade">
-          <img v-else @click="checkTask()" src="../assets/check-green.png" alt="Botão de check da atividade">
-          <input type="text" name="activies" id="activies" placeholder="Adicione um novo item ..." />
+      <div class="container-res">
+        <div class="container-task">
+          <div class="check">
+            <Check v-if="showCheck" @click="checkTask()" class="icons" />
+            <input type="text" name="activies" id="activies" placeholder="Task BD ..." />
+          </div>
+          <Trash2 @click="deleteTask()" class="icons" />
         </div>
-        <img class="delete" src="../assets/delete.png" alt="Botão de deletar" @click="deleteTask()">
       </div>
-
     </form>
   </div>
 </template>
 
 <script>
-import { api } from '@/boot/axios';
+import { Check, Trash2 } from 'lucide-vue-next';
 
 export default {
   name: 'TodoList',
+  components: {
+    Check,
+    Trash2,
+  },
   data() {
     return {
       showCheck: true,
     }
-  }, 
+  },
   methods: {
     checkTask() {
-      this.showCheck = !this.showCheck;
+      console.log("Clicou")
     },
     deleteTask() {
       // conexão do back e front feita
@@ -41,80 +45,76 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+/*
+  cores:
+  verde #296F44
+  dark #0A0D14
+  cinza: #BFC1CD
+  verde claro: #359d5d
 
-* {
-  font-family: "Open Sans", sans-serif;
-}
+*/
 
 .container {
   display: flex;
-  justify-content: center;
-}
-
-.container-form {
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 500px;
+}
+
+form {
+  max-width: 500px;
   margin-top: 20px;
+}
+
+
+.container-form>#activies {
+  font-size: 1.2em;
   padding: 10px;
-  background-color: #0A0D14;
-  border-left: 2px solid #296F44;
-}
-
-.container-form input {
   border: none;
-  width: 100%;
-  font-size: 16px;
-  background-color: transparent;
+  border-left: 2px solid #359d5d;
 }
 
-.container-form input:focus {
+.container-form>#activies:focus {
   outline: none;
 }
 
-.container-form button {
+.container-form>input[type="submit"] {
+  font-size: 1em;
+  padding: 10px;
   border: none;
-  text-transform: uppercase;
   color: #359d5d;
   font-weight: bold;
-  background-color: transparent;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
 .container-task {
-  background-color: #BFC1CD;
+  margin-top: 20px;
   padding: 10px;
-  margin-top: 10px;
+  background-color: aliceblue;
   display: flex;
   justify-content: space-between;
-
+  align-items: center;
 }
 
-.container-task img {
-  width: 20px;
-  background-color: transparent;
-  cursor: pointer;
+.check {
+  background-color: aliceblue;
+  color: #359d5d;
+  display: flex;
+  align-items: center;
 }
 
-.container-res {
-  background-color: transparent;
-  width: 100%;
-}
-
-.container-res input {
-  background-color: transparent;
-  color: #0A0D14;
+.check input {
   border: none;
-  width: 85%;
+  background-color: transparent;
   padding-left: 10px;
 }
 
-.container-res input:focus {
-  outline: none
+.check input:focus {
+  outline: none;
 }
 
-.container-res  {
+.icons {
+  background-color: transparent;
   cursor: pointer;
 }
 </style>
